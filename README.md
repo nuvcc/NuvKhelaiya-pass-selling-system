@@ -3,4 +3,6 @@ requirements:
 pygsheets
 tkinter
 re
-ignore main.py 
+
+
+will need creds.json to authenticate
