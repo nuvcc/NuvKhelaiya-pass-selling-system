@@ -3,3 +3,4 @@ requirements:
 pygsheets
 tkinter
 re
+ignore main.py 
