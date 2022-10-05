@@ -28,6 +28,7 @@ class Earlybird:
         self.enrollment_var=StringVar()
         self.payment_var=StringVar()
         self.search_by_var=StringVar()
+        self.seller = "shivam"
 
         
         
@@ -191,6 +192,11 @@ class Earlybird:
         rownum = 'E' + str(self.uid_var.get())
         pygsheets.Cell(rownum,"-",self.wk1).set_value(updatepayment)  
         self.searchdata()
+        with open('readme.txt', 'a') as f:
+            namevar = str(self.name_var.get())
+            paymentvar = str(self.payment_var.get()) 
+            log = '\n' + self.seller + "  " + namevar + "  " + paymentvar + "EB"
+            f.write(log)
 
 
     def searchdata(self):
@@ -208,12 +214,11 @@ class Earlybird:
         
 
 
+if __name__=="__main__":
+    root=Tk()
+    ob=Earlybird(root)
+    root.mainloop()
 
 
 
 
-
-
-root=Tk()
-ob=Earlybird(root)
-root.mainloop()
