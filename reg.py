@@ -2,12 +2,9 @@ import pygsheets
 from tkinter import *
 from tkinter import ttk
 import re
-import sys
-import os
 
-class Earlybird:
+class Regular:
     def __init__(self,root):
-        self.resource_path()
         self.downloaddata()
         self.root=root
         self.root.title("NuvKhelaiya pass management system")
@@ -31,6 +28,7 @@ class Earlybird:
         self.enrollment_var=StringVar()
         self.payment_var=StringVar()
         self.search_by_var=StringVar()
+        self.seller = "shivam"
 
         
         
@@ -104,17 +102,18 @@ class Earlybird:
         
         
         # ===========================labels in detail_frame
+
         
         lblsearch = Label(detail_frame,text="search:", font = ("nunito", 15, "bold"), bg= "gray")
         lblsearch.grid(row=0,column=0,pady=10,padx=20,sticky="w")
 
         txt_searchbox = Entry(detail_frame,textvariable=self.search_by_var,font =("nunito",10,"bold"),bd=2)
         txt_searchbox.grid(row=0,column=2,pady=10,padx=10,sticky="w")
+
                
         searchbtn=Button(detail_frame,text="Search",width=10,command=self.searchdata).grid(row=0,column=3,padx=10,pady=10)
         clearbtn=Button(detail_frame,text="clear",width=10).grid(row=0,column=4,padx=10,pady=10)
         addbtn=Button(detail_frame,text="show all",width=10,command=self.adddata).grid(row=0,column=5,padx=60)
-        
         
         
         # =======================table_frame
@@ -147,10 +146,6 @@ class Earlybird:
         self.pass_table.bind("<ButtonRelease-1>",self.getdata)
         self.adddata()
         
-    def resource_path(relative_path):
-
-        base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
-        return os.path.join(base_path, relative_path)
         
     def downloaddata(self):
         path='creds.json'
@@ -197,6 +192,11 @@ class Earlybird:
         rownum = 'E' + str(self.uid_var.get())
         pygsheets.Cell(rownum,"-",self.wk1).set_value(updatepayment)  
         self.searchdata()
+        with open('readme.txt', 'a') as f:
+            namevar = str(self.name_var.get())
+            paymentvar = str(self.payment_var.get()) 
+            log = '\n' + self.seller + "  " + namevar + "  " + paymentvar + "REG"
+            f.write(log)
 
 
     def searchdata(self):
@@ -214,12 +214,11 @@ class Earlybird:
         
 
 
+if __name__=="__main__":
+    root=Tk()
+    ob=Regular(root)
+    root.mainloop()
 
 
 
 
-
-
-root=Tk()
-ob=Earlybird(root)
-root.mainloop()
